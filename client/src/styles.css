@@ -211,3 +211,78 @@
   }
 
 }
+
+/* Keep database supplied text and admin records within the viewport. */
+html, body, #root { min-width: 320px; }
+body { overflow-x: hidden; }
+.wrap, .heroGrid, .detailsGrid, .itemCard, .matchCard, .reportCard,
+.authCard, .adminTable, .row, .reportInfo, .detailsContent { min-width: 0; }
+.itemBody h3, .itemBody p, .reportInfo b, .reportInfo small,
+.detailsInfo strong, .detailsDescription, .matchCard p,
+.matchEmpty p, .row p { overflow-wrap: anywhere; }
+.grid3 { grid-template-columns: repeat(auto-fit, minmax(min(100%, 270px), 1fr)); }
+.itemFoot { flex-wrap: wrap; justify-content: flex-start; }
+.itemFoot span { min-width: 0; overflow-wrap: anywhere; }
+.row { gap: 16px; }
+.reportInfo { flex: 1 1 220px; }
+.adminActions { flex-wrap: wrap; justify-content: flex-end; }
+.stats { grid-template-columns: repeat(auto-fit, minmax(145px, 1fr)); }
+.detailsInfo { grid-template-columns: repeat(auto-fit, minmax(min(100%, 180px), 1fr)); }
+
+@media (max-width: 800px) {
+  .wrap { padding-left: 18px; padding-right: 18px; }
+  .nav { height: 64px; }
+  nav.show { top: 64px; z-index: 11; gap: 16px; }
+  nav.show a, nav.show .ghost { padding: 8px 0; text-align: left; }
+  .hero { padding: 48px 0 55px; }
+  .heroGrid { gap: 28px; }
+  .hero h1 { font-size: clamp(42px, 11vw, 60px); }
+  .hero p { font-size: 16px; }
+  .section, .darkSection { padding-top: 54px; padding-bottom: 58px; }
+  .sectionHead { align-items: flex-start; gap: 14px; flex-wrap: wrap; }
+  .sectionHead h2 { font-size: clamp(26px, 7vw, 35px); }
+  .page { padding-top: 38px; padding-bottom: 60px; }
+  .page h1 { font-size: clamp(38px, 10vw, 55px); overflow-wrap: anywhere; }
+  .pageHead { margin-bottom: 26px; }
+  .filters { gap: 10px; }
+  .search { min-height: 48px; }
+  .tabs { width: 100%; }
+  .tabs button { flex: 1; min-height: 40px; }
+  .stats { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .stat { padding: 15px; }
+  .stat strong { font-size: 27px; }
+  .tableHead { gap: 12px; }
+  .row { align-items: flex-start; flex-direction: column; }
+  .adminActions { justify-content: flex-start; }
+  .row > div[style] { margin: 0 !important; width: 100%; }
+  .detailsGrid { gap: 24px; }
+  .largeItemImage { min-height: clamp(210px, 60vw, 280px); }
+  .detailsContent h1 { font-size: clamp(34px, 9vw, 42px); overflow-wrap: anywhere; }
+  .detailsDescription { font-size: 16px; }
+  .matchSection { margin-top: 52px; }
+  .matchEmpty { margin-top: 30px; padding: 17px; }
+  .authPage { padding: 24px 16px; }
+  .authCard, .reportCard { padding: 24px 18px; }
+  .empty { padding: 54px 16px; }
+}
+
+@media (max-width: 480px) {
+  .wrap { padding-left: 15px; padding-right: 15px; }
+  .actions { flex-direction: column; align-items: stretch; }
+  .actions .btn, .pageHead > .btn { width: 100%; }
+  .trust { align-items: flex-start; line-height: 1.5; }
+  .heroCard { padding: 17px; }
+  .activity { align-items: flex-start; }
+  .activity small { overflow-wrap: anywhere; }
+  .steps, .grid3 { grid-template-columns: minmax(0, 1fr); }
+  .itemFoot { flex-direction: column; align-items: flex-start; }
+  .two, .three { grid-template-columns: minmax(0, 1fr); gap: 0; }
+  .detailsInfo { grid-template-columns: minmax(0, 1fr); }
+  .detailsInfo strong { word-break: break-word; }
+  .seg { grid-template-columns: 1fr; }
+  .seg button { min-height: 44px; }
+  .tableHead { padding: 15px; }
+  .row { padding: 15px; }
+  .adminActions { gap: 8px; }
+  footer .wrap { padding-top: 0; padding-bottom: 0; }
+}
