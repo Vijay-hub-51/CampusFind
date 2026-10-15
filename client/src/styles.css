@@ -286,3 +286,7 @@ body { overflow-x: hidden; }
   .adminActions { gap: 8px; }
   footer .wrap { padding-top: 0; padding-bottom: 0; }
 }
+
+.brandIcon{display:block;width:58px;height:38px;object-fit:contain;flex:none}
+@media(max-width:480px){.brandIcon{width:48px;height:32px}}
+
