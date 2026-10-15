@@ -1,5 +1,5 @@
 import React,{useEffect,useState} from 'react'; import {createRoot} from 'react-dom/client'; import {BrowserRouter,useNavigate,useLocation,Routes,Route,Link} from 'react-router-dom'; import axios from 'axios'; import {Search,PlusCircle,PackageSearch,ShieldCheck,MapPin,CalendarDays,ArrowRight,LogIn,UserPlus,LayoutDashboard,CheckCircle2,Clock3,Menu,X} from 'lucide-react'; import './styles.css';
-const API='http://localhost:5000/api'; const api=axios.create({baseURL:API});
+const API='https://campusfind-api-flt3.onrender.com/api'; const api=axios.create({baseURL:API});
 function useAuth(){const [u,setU]=useState(()=>JSON.parse(localStorage.getItem('campusfind_user')||'null'));const login=(data)=>{localStorage.setItem('campusfind_token',data.token);localStorage.setItem('campusfind_user',JSON.stringify(data.user));setU(data.user)};const logout=()=>{localStorage.clear();setU(null)};return {u,login,logout}}
 function Nav(){const {u,logout}=useAuth();const [open,setOpen]=useState(false);return <header><div className="nav wrap"><Link className="brand" to="/"><span className="brandmark">CF</span> CampusFind</Link><button className="mobile" onClick={()=>setOpen(!open)}>{open?<X/>:<Menu/>}</button><nav className={open?'show':''}><Link to="/browse">Browse</Link>{u && (
   <>
