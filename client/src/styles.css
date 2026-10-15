@@ -287,6 +287,8 @@ body { overflow-x: hidden; }
   footer .wrap { padding-top: 0; padding-bottom: 0; }
 }
 
-.brandIcon{display:block;width:58px;height:38px;object-fit:contain;flex:none}
-@media(max-width:480px){.brandIcon{width:48px;height:32px}}
+.brandIcon{display:block;width:128px;height:54px;object-fit:contain;flex:none}
+.authCard .brandIcon{width:180px;height:76px}
+@media(max-width:480px){.brandIcon{width:112px;height:48px}.authCard .brandIcon{width:160px;height:68px}}
+
 
