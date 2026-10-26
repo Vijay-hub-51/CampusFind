@@ -258,5 +258,5 @@ app.get(
 );
 app.get('/api/admin/stats',auth,admin,async(_,res)=>{const [lost,found,returned,users,pending]=await Promise.all([Item.countDocuments({type:'lost'}),Item.countDocuments({type:'found'}),Item.countDocuments({status:'returned'}),User.countDocuments(),Item.countDocuments({status:'pending'})]);res.json({lost,found,returned,users,pending})});
 app.get('/api/admin/items',auth,admin,async(_,res)=>res.json(await Item.find().populate('reportedBy','name email').sort({createdAt:-1})));
-app.patch('/api/admin/items/:id',auth,admin,async(req,res)=>{const item=await Item.findByIdAndUpdate(req.params.id,{status:req.body.status},{new:true});res.json(item)});
+app.patch('/api/admin/items/:id',auth,admin,async(req,res)=>{if(!['active','rejected'].includes(req.body.status))return res.status(400).json({message:'Status must be active or rejected'});const item=await Item.findByIdAndUpdate(req.params.id,{status:req.body.status},{new:true});if(!item)return res.status(404).json({message:'Item not found'});res.json(item)});
 const port=process.env.PORT||5000;mongoose.connect(process.env.MONGO_URI).then(()=>app.listen(port,()=>console.log(`CampusFind API running on ${port}`))).catch(e=>{console.error('MongoDB connection failed:',e.message);process.exit(1)});
