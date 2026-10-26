@@ -27,3 +27,4 @@ npm install
 npm run dev
 ```
 Set `MONGO_URI` and `JWT_SECRET` in `server/.env`.
+For deployment, set the backend's `CLIENT_URLS` environment variable to a comma-separated list of allowed frontend origins (for example, `https://campusfind-peach-eight.vercel.app`). Origins may be listed with or without a trailing slash. `CLIENT_URL` remains supported for a single origin.

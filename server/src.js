@@ -1,6 +1,16 @@
 import express from 'express'; import cors from 'cors'; import dotenv from 'dotenv'; import mongoose from 'mongoose'; import bcrypt from 'bcryptjs'; import jwt from 'jsonwebtoken';
 import User from './models/User.js'; import Item from './models/Item.js'; import Claim from './models/Claim.js'; import {auth,admin} from './middleware/auth.js'; import {matchScore} from './utils/match.js';
-dotenv.config(); const app=express(); app.use(cors({origin:process.env.CLIENT_URL||'http://localhost:5173'})); app.use(express.json());
+dotenv.config(); const app=express();
+const allowedOrigins=(process.env.CLIENT_URLS||process.env.CLIENT_URL||'http://localhost:5173')
+  .split(',')
+  .map(origin=>origin.trim().replace(/\/+$/,''))
+  .filter(Boolean);
+app.use(cors({origin:(origin,callback)=>{
+  // Allow non-browser requests (for example health checks) without an Origin header.
+  if(!origin||allowedOrigins.includes(origin.replace(/\/+$/,'')))return callback(null,true);
+  return callback(new Error('Not allowed by CORS'));
+}}));
+app.use(express.json());
 const tokenFor=u=>jwt.sign({id:u._id,role:u.role,name:u.name,email:u.email},process.env.JWT_SECRET,{expiresIn:'7d'});
 app.get('/api/health',(_,res)=>res.json({ok:true,app:'CampusFind'}));
 app.post('/api/auth/register',async(req,res)=>{try{const {name,email,password,studentId,department,year}=req.body;if(!name||!email||!password)return res.status(400).json({message:'Name, email and password are required'});if(await User.findOne({email}))return res.status(409).json({message:'Email already registered'});const u=await User.create({name,email,password:await bcrypt.hash(password,10),studentId,department,year});res.status(201).json({token:tokenFor(u),user:{id:u._id,name:u.name,email:u.email,role:u.role}})}catch(e){res.status(500).json({message:e.message})}});
