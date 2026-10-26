@@ -1,8 +1,11 @@
 import express from 'express'; import cors from 'cors'; import dotenv from 'dotenv'; import mongoose from 'mongoose'; import bcrypt from 'bcryptjs'; import jwt from 'jsonwebtoken';
 import User from './models/User.js'; import Item from './models/Item.js'; import Claim from './models/Claim.js'; import {auth,admin} from './middleware/auth.js'; import {matchScore} from './utils/match.js';
 dotenv.config(); const app=express();
-const allowedOrigins=(process.env.CLIENT_URLS||process.env.CLIENT_URL||'http://localhost:5173')
-  .split(',')
+const allowedOrigins=[
+  'http://localhost:5173',
+  'https://campusfind-peach-eight.vercel.app',
+  ...(process.env.CLIENT_URLS||process.env.CLIENT_URL||'').split(',')
+]
   .map(origin=>origin.trim().replace(/\/+$/,''))
   .filter(Boolean);
 app.use(cors({origin:(origin,callback)=>{
